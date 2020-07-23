@@ -1,0 +1,5 @@
+{
+  "id": 112461,
+  "key": "App112461",
+  "includeInBuild": ["node_modules/vm2/*"]
+}

@@ -1,0 +1,11 @@
+/build
+/lib
+docs
+node_modules
+*.log
+.environment
+.env
+test.http
+.playground
+.rest-client
+.zapier/keys
