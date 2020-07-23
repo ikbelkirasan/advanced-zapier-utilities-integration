@@ -4,6 +4,7 @@ import moment from "moment";
 import JSON from "json5";
 import lodash from "lodash";
 import jsonexport from "jsonexport";
+import fetch from "node-fetch";
 // import XML from "xml2json";
 
 const runCode = async (code: string, inputData: any) => {
@@ -18,6 +19,7 @@ const runCode = async (code: string, inputData: any) => {
       JSON,
       _: lodash,
       toCSV: jsonexport,
+      fetch,
       // XML,
       // parseXML,
       inputData,
