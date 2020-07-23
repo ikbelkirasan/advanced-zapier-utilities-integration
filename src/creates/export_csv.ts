@@ -55,7 +55,7 @@ export default {
   key: "export_csv",
   noun: "CSV",
   display: {
-    label: "Export CSV",
+    label: "Export to CSV",
     description: "Converts input data to CSV",
   },
   operation: {
