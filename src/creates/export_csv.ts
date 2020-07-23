@@ -1,22 +1,54 @@
 import { ZObject, Bundle } from "zapier-platform-core";
+import _ from "lodash";
 import toCSV from "jsonexport";
 import JSON from "json5";
+import { getCsvFile } from "../hydrators/get_csv_file";
+
+async function stashCsvFile(z: ZObject, csv: string) {
+  if (process.env.NODE_ENV === "test") {
+    return "https://example.url/foobar";
+  }
+  return z.stashFile(csv, csv.length, "output.csv", "text/csv");
+}
 
 const perform = async (z: ZObject, bundle: Bundle) => {
-  const { inputType, json, lineItems } = bundle.inputData;
-  let obj;
+  const {
+    inputType,
+    json,
+    lineItems,
+    columns,
+    delimiter = ",",
+    fileOutput,
+  } = bundle.inputData;
+  let data;
   if (inputType === "json") {
-    obj = JSON.parse(json);
+    data = JSON.parse(json);
   } else if (inputType === "lineItems") {
-    obj = lineItems;
+    data = _.map(lineItems, item => {
+      return item.items;
+    });
   } else {
     throw new Error("Invalid input type");
   }
 
-  const output = await toCSV(obj);
-  return {
-    output,
-  };
+  if (!_.isEmpty(columns)) {
+    data = _.map(data, item => _.pick(item, columns));
+  }
+
+  const output: { csv?: string; file?: string } = {};
+
+  const csv = await toCSV(data, {
+    rowDelimiter: delimiter,
+  });
+
+  if (fileOutput) {
+    const url = await stashCsvFile(z, csv);
+    output.file = (z as any).dehydrateFile(getCsvFile, { url });
+  } else {
+    output.csv = csv;
+  }
+
+  return output;
 };
 
 export default {
@@ -72,10 +104,25 @@ export default {
         list: true,
         helpText: "If left unpopulated, all columns will be included",
       },
+      {
+        key: "delimiter",
+        label: "Delimiter",
+        helpText: "Default: `,`",
+      },
+      {
+        key: "fileOutput",
+        type: "boolean",
+        helpText: "Return the output as a file. Default: false",
+      },
     ],
     perform,
+    outputFields: [
+      { key: "csv", type: "string" },
+      { key: "file", type: "file" },
+    ],
     sample: {
-      id: 1,
+      csv: "HEAD1,HEAD2\nVAL1,VAL2\nVAL3,VAlL4",
+      file: "",
     },
   },
 };
