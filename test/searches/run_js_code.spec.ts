@@ -103,40 +103,4 @@ describe("Run JavaScript Code", () => {
       },
     ]);
   });
-
-  it.skip("XML<->JSON parsing/serializing should work", async () => {
-    const response = await runTest({
-      inputData: {
-        xml: `<?xml version="1.0"?>
-<root>
-  <foo>Hello</foo>
-  <bar key="value">complex</bar>
-</root>
-`,
-        json: `{"root": {"foo":"bar"}}`,
-      },
-      code: `
-      const json = parseXML(inputData.xml);
-      const xml = XML.toXml(inputData.json);
-      output = [{
-        json,
-        xml,
-      }]
-      `,
-    });
-    expect(response).toEqual([
-      {
-        json: {
-          root: {
-            foo: "Hello",
-            bar: {
-              $t: "complex",
-              key: "value",
-            },
-          },
-        },
-        xml: `<root foo="bar"></root>`,
-      },
-    ]);
-  });
 });

@@ -5,14 +5,8 @@ import JSON from "json5";
 import lodash from "lodash";
 import jsonexport from "jsonexport";
 import fetch from "node-fetch";
-// import XML from "xml2json";
 
 const runCode = async (code: string, inputData: any) => {
-  // const parseXML = (xml: string) => {
-  //   const json = XML.toJson(xml);
-  //   return JSON.parse(json);
-  // };
-
   const vm = new vm2.NodeVM({
     sandbox: {
       moment,
@@ -20,8 +14,6 @@ const runCode = async (code: string, inputData: any) => {
       _: lodash,
       toCSV: jsonexport,
       fetch,
-      // XML,
-      // parseXML,
       inputData,
     },
   });
