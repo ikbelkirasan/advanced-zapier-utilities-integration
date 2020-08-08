@@ -17,3 +17,8 @@ Run:
 ```shell
 $ yarn test --watchAll
 ```
+
+# Changes
+
+- 2020-08-08
+  - Fix code highlighting issue.

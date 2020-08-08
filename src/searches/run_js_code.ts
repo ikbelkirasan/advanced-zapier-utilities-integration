@@ -49,11 +49,16 @@ export default {
         label: "Input Data",
         dict: true,
       },
-      {
-        key: "code",
-        label: "Code",
-        type: "string",
-        required: true,
+      async (z: ZObject, bundle: Bundle) => {
+        return [
+          {
+            key: "code",
+            label: "Code",
+            type: "code",
+            language: "javascript",
+            required: true,
+          },
+        ];
       },
     ],
     perform,
