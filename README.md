@@ -22,3 +22,5 @@ $ yarn test --watchAll
 
 - 2020-08-08
   - Fix code highlighting issue.
+- 2020-08-09
+  - Add "Extract Pattern" action
