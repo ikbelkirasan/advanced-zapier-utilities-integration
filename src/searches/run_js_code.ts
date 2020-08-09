@@ -48,6 +48,8 @@ export default {
         key: "inputData",
         label: "Input Data",
         dict: true,
+        helpText:
+          "What input data should we provide to your code (as strings) via an object set to a variable named `inputData`?",
       },
       async (z: ZObject, bundle: Bundle) => {
         return [
@@ -56,6 +58,8 @@ export default {
             label: "Code",
             type: "code",
             language: "javascript",
+            default:
+              '// this is wrapped in an `async` function\n// you can use await throughout the function\n\noutput = [{id: 123, hello: "world"}];',
             required: true,
           },
         ];
