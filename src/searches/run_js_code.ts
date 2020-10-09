@@ -5,6 +5,7 @@ import JSON from "json5";
 import lodash from "lodash";
 import jsonexport from "jsonexport";
 import fetch from "node-fetch";
+import * as CSV from "@fast-csv/parse";
 
 const runCode = async (code: string, inputData: any) => {
   const vm = new vm2.NodeVM({
@@ -15,6 +16,7 @@ const runCode = async (code: string, inputData: any) => {
       toCSV: jsonexport,
       fetch,
       inputData,
+      CSV,
     },
   });
 
