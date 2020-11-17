@@ -6,6 +6,7 @@ import lodash from "lodash";
 import jsonexport from "jsonexport";
 import fetch from "node-fetch";
 import * as CSV from "@fast-csv/parse";
+import papa from "papaparse";
 
 const runCode = async (code: string, inputData: any) => {
   const vm = new vm2.NodeVM({
@@ -17,6 +18,7 @@ const runCode = async (code: string, inputData: any) => {
       fetch,
       inputData,
       CSV,
+      papa,
     },
   });
 
