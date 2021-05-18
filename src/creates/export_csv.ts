@@ -18,6 +18,7 @@ const perform = async (z: ZObject, bundle: Bundle) => {
     lineItems,
     columns,
     delimiter = ",",
+    endOfLine = "\n",
     fileOutput,
   } = bundle.inputData;
   let data;
@@ -39,6 +40,7 @@ const perform = async (z: ZObject, bundle: Bundle) => {
 
   const csv = await toCSV(data, {
     rowDelimiter: delimiter,
+    endOfLine,
   });
 
   if (fileOutput) {
@@ -108,6 +110,16 @@ export default {
         key: "delimiter",
         label: "Delimiter",
         helpText: "Default: `,`",
+      },
+      {
+        key: "endOfLine",
+        label: "End of Line Character",
+        choices: {
+          "\n": "LF",
+          "\r\n": "CRLF",
+        },
+        default: "\n",
+        helpText: "Default: `LF`",
       },
       {
         key: "fileOutput",

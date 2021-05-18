@@ -92,4 +92,29 @@ describe("Export CSV", () => {
       file: `hydrate|||{"type":"file","method":"hydrators.getCsvFile","bundle":{"url":"https://example.url/foobar"}}|||hydrate`,
     });
   });
+
+  it("should change the endOfLine character", async () => {
+    const response = await runTest({
+      inputType: "lineItems",
+      lineItems: [
+        {
+          items: {
+            id: "1000",
+            name: "John Doe",
+          },
+        },
+        {
+          items: {
+            id: "2000",
+            name: "Jane Doe",
+          },
+        },
+      ],
+      endOfLine: "\r\n",
+    });
+
+    expect(response).toEqual({
+      csv: `id,name\r\n1000,John Doe\r\n2000,Jane Doe`,
+    });
+  });
 });
