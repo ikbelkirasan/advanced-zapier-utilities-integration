@@ -1,6 +1,6 @@
 import { ZObject, Bundle } from "zapier-platform-core";
 import vm2 from "vm2";
-import moment from "moment";
+import moment from "moment-timezone";
 import JSON from "json5";
 import lodash from "lodash";
 import jsonexport from "jsonexport";
