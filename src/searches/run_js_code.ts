@@ -7,6 +7,7 @@ import jsonexport from "jsonexport";
 import fetch from "node-fetch";
 import * as CSV from "@fast-csv/parse";
 import papa from "papaparse";
+import cryptojs from "crypto-js";
 
 const runCode = async (code: string, inputData: any) => {
   const vm = new vm2.NodeVM({
@@ -19,6 +20,7 @@ const runCode = async (code: string, inputData: any) => {
       inputData,
       CSV,
       papa,
+      cryptojs,
     },
   });
 
